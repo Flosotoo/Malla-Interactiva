@@ -5,7 +5,6 @@
   --beige: #F5EFEB;
   --blanco: #FFFFFF;
   --califica: #a6e3a1;
-  --reprobado: #f7c2c2;
 }
 
 body {
@@ -43,11 +42,30 @@ header {
   transition: width 0.5s;
 }
 
-#malla-container {
+#progreso-text {
+  font-weight: bold;
+}
+
+.seccion {
+  margin: 2rem auto;
+  max-width: 1000px;
+  background-color: var(--blanco);
+  border-left: 6px solid var(--azul-medio);
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.seccion h2 {
+  color: var(--azul-oscuro);
+  border-bottom: 1px solid var(--azul-claro);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.semestre {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
-  padding: 2rem;
 }
 
 .ramo {
