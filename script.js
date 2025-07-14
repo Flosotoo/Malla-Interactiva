@@ -1,96 +1,101 @@
-// script.js
-
 const ramos = [
-  { id: 'fp', nombre: 'Fundamentos de Programación', requisitos: [], abre: ['doo'] },
-  { id: 'icc', nombre: 'Introducción al Cloud Computing', requisitos: [], abre: [] },
-  { id: 'bi', nombre: 'Bases de Innovación', requisitos: [], abre: ['ir'] },
-  { id: 'nm', nombre: 'Nivelación Matemática', requisitos: [], abre: ['ma'] },
-  { id: 'hc', nombre: 'Habilidades de Comunicación', requisitos: [], abre: [] },
-  { id: 'doo', nombre: 'Desarrollo Orientado a Objetos', requisitos: ['fp'], abre: ['dfs1', 'dam', 'dfs2'] },
-  { id: 'bd1', nombre: 'Base de Datos Aplicada I', requisitos: [], abre: ['bd2'] },
-  { id: 'ir', nombre: 'Ingeniería de Requisitos', requisitos: ['bi'], abre: ['is'] },
-  { id: 'ma', nombre: 'Matemática Aplicada', requisitos: ['nm'], abre: ['ed'] },
-  { id: 'ie1', nombre: 'Inglés Elemental I', requisitos: [], abre: ['ie2'] },
-  { id: 'fa', nombre: 'Fundamentos de Antropología', requisitos: [], abre: ['et'] },
-  { id: 'dfs1', nombre: 'Desarrollo Fullstack I', requisitos: ['doo'], abre: ['dfs2'] },
-  { id: 'bd2', nombre: 'Base de Datos Aplicada II', requisitos: ['bd1'], abre: ['tbd'] },
-  { id: 'is', nombre: 'Ingeniería de Software', requisitos: ['ir'], abre: [] },
-  { id: 'ie2', nombre: 'Inglés Elemental II', requisitos: ['ie1'], abre: ['ii1'] },
-  { id: 'dfs2', nombre: 'Desarrollo Fullstack II', requisitos: ['dfs1', 'doo'], abre: ['dfs3'] },
-  { id: 'dam', nombre: 'Desarrollo de Aplicaciones Móviles', requisitos: ['doo'], abre: [] },
-  { id: 'tbd', nombre: 'Taller de Base de Datos', requisitos: ['bd2'], abre: [] },
-  { id: 'ed', nombre: 'Estadística Descriptiva', requisitos: ['ma'], abre: [] },
-  { id: 'ii1', nombre: 'Inglés Intermedio I', requisitos: ['ie2'], abre: [] },
-  { id: 'et', nombre: 'Ética para el Trabajo', requisitos: ['fa'], abre: ['ep'] },
-  { id: 'dfs3', nombre: 'Desarrollo Fullstack III', requisitos: ['dfs2'], abre: ['scds'] },
-  { id: 'devops', nombre: 'Introducción a Herramientas DevOps', requisitos: [], abre: [] },
-  { id: 'eps', nombre: 'Evaluación de Proyectos de Software', requisitos: [], abre: ['gps'] },
-  { id: 'dcn1', nombre: 'Desarrollo Cloud Native I', requisitos: [], abre: ['dcn2'] },
-  { id: 'scds', nombre: 'Seguridad y Calidad en el Desarrollo de Software', requisitos: ['dfs3'], abre: [] },
-  { id: 'gps', nombre: 'Gestión de Proyectos de Software', requisitos: ['eps'], abre: [] },
-  { id: 'dcn2', nombre: 'Desarrollo Cloud Native II', requisitos: ['dcn1'], abre: ['tas'] },
-  { id: 'ati', nombre: 'Arquitecturas TI Contemporáneas', requisitos: [], abre: ['ttv'] },
-  { id: 'bpm', nombre: 'BPM Aplicado', requisitos: [], abre: [] },
-  { id: 'ep', nombre: 'Ética Profesional', requisitos: ['et'], abre: [] },
-  { id: 'ttv', nombre: 'Taller de Tecnologías de Vanguardia', requisitos: ['ati'], abre: [] },
-  { id: 'tas', nombre: 'Taller Aplicado de Software', requisitos: ['dcn2'], abre: [] },
-  { id: 'pp', nombre: 'Práctica Profesional', requisitos: ['fp','icc','bi','nm','hc','doo','bd1','ir','ma','ie1','fa','dfs1','bd2','is','ie2','dfs2','dam','tbd','ed','ii1','et','dfs3','devops','eps','dcn1','scds','gps','dcn2','ati','bpm','ep'], abre: [] }
+  // === Primer Año ===
+  { nombre: "Fundamentos de programación", requisitos: [], abre: ["Desarrollo orientado a objetos"] },
+  { nombre: "Introducción al Cloud Computing", requisitos: [], abre: [] },
+  { nombre: "Bases de innovación", requisitos: [], abre: ["Ingeniería de requisitos"] },
+  { nombre: "Nivelación matemática", requisitos: [], abre: ["Matemática aplicada"] },
+  { nombre: "Habilidades de comunicación", requisitos: [], abre: [] },
+  { nombre: "Desarrollo orientado a objetos", requisitos: ["Fundamentos de programación"], abre: ["Desarrollo fullstack I", "Desarrollo de aplicaciones móviles", "Desarrollo fullstack II"] },
+  { nombre: "Base de datos aplicada I", requisitos: [], abre: ["Base de datos aplicada II"] },
+  { nombre: "Ingeniería de requisitos", requisitos: ["Bases de innovación"], abre: ["Ingeniería de software"] },
+  { nombre: "Matemática aplicada", requisitos: ["Nivelación matemática"], abre: ["Estadística descriptiva"] },
+  { nombre: "Inglés elemental I", requisitos: [], abre: ["Inglés elemental II"] },
+  { nombre: "Fundamentos de antropología", requisitos: [], abre: ["Ética para el trabajo"] },
+  { nombre: "Desarrollo fullstack I", requisitos: ["Desarrollo orientado a objetos"], abre: ["Desarrollo fullstack II"] },
+  { nombre: "Base de datos aplicada II", requisitos: ["Base de datos aplicada I"], abre: ["Taller de base de datos"] },
+  { nombre: "Ingeniería de software", requisitos: ["Ingeniería de requisitos"], abre: [] },
+  { nombre: "Inglés elemental II", requisitos: ["Inglés elemental I"], abre: ["Inglés intermedio I"] },
+  { nombre: "Desarrollo fullstack II", requisitos: ["Desarrollo fullstack I", "Desarrollo orientado a objetos"], abre: ["Desarrollo fullstack III"] },
+  { nombre: "Desarrollo de aplicaciones móviles", requisitos: ["Desarrollo orientado a objetos"], abre: [] },
+  { nombre: "Taller de base de datos", requisitos: ["Base de datos aplicada II"], abre: [] },
+  { nombre: "Estadística descriptiva", requisitos: ["Matemática aplicada"], abre: [] },
+  { nombre: "Inglés intermedio I", requisitos: ["Inglés elemental II"], abre: [] },
+  { nombre: "Ética para el trabajo", requisitos: ["Fundamentos de antropología"], abre: ["Ética profesional"] },
+  { nombre: "Desarrollo fullstack III", requisitos: ["Desarrollo fullstack II"], abre: ["Seguridad y calidad en el desarrollo de software"] },
+  { nombre: "Introducción a herramientas DevOps", requisitos: [], abre: [] },
+  { nombre: "Evaluación de proyectos de software", requisitos: [], abre: ["Gestión de proyectos de software"] },
+  { nombre: "Desarrollo Cloud Native I", requisitos: [], abre: ["Desarrollo Cloud Native II"] },
+  { nombre: "Seguridad y calidad en el desarrollo de software", requisitos: ["Desarrollo fullstack III"], abre: [] },
+  { nombre: "Gestión de proyectos de software", requisitos: ["Evaluación de proyectos de software"], abre: [] },
+  { nombre: "Desarrollo Cloud Native II", requisitos: ["Desarrollo Cloud Native I"], abre: ["Taller aplicado de software"] },
+  { nombre: "Arquitecturas TI contemporáneas", requisitos: [], abre: ["Taller de tecnologías de vanguardia"] },
+  { nombre: "BPM aplicado", requisitos: [], abre: [] },
+  { nombre: "Ética profesional", requisitos: ["Ética para el trabajo"], abre: [] },
+  { nombre: "Taller de tecnologías de vanguardia", requisitos: ["Arquitecturas TI contemporáneas"], abre: [] },
+  { nombre: "Taller aplicado de software", requisitos: ["Desarrollo Cloud Native II"], abre: [] },
+  { nombre: "Práctica profesional", requisitos: ["DEL SEMESTRE 1 al 7 aprobados"], abre: [] },
 ];
 
-let estadoRamos = JSON.parse(localStorage.getItem('estadoRamos')) || {};
+let aprobados = new Set();
 
-function crearRamo(ramo) {
-  const div = document.createElement('div');
-  div.className = 'ramo';
-  div.id = ramo.id;
-  div.innerHTML = `<h3>${ramo.nombre}</h3>
-    <input type="number" min="1" max="7" placeholder="Nota final..." ${!habilitado(ramo) ? 'disabled' : ''} />
-    <div class="estado">${estadoRamos[ramo.id]?.estado || 'Pendiente'}</div>`;
+const container = document.getElementById("malla-container");
 
-  if (!habilitado(ramo)) {
-    div.classList.add('bloqueado');
-  }
+function actualizarProgreso() {
+  const total = ramos.length;
+  const completados = aprobados.size;
+  const porcentaje = Math.round((completados / total) * 100);
+  document.getElementById("progreso").style.width = porcentaje + "%";
+  document.getElementById("progreso-text").textContent = `${porcentaje}% Completado`;
+}
 
-  div.addEventListener('click', e => {
-    if (!habilitado(ramo)) return;
-    const nota = div.querySelector('input').value;
-    if (!nota || isNaN(nota)) return alert('Ingresa una nota válida');
-    const notaFinal = parseFloat(nota);
+function crearRamo(ramo, index) {
+  const div = document.createElement("div");
+  div.className = "ramo bloqueado";
+  div.id = "ramo-" + index;
+  div.textContent = ramo.nombre;
 
-    estadoRamos[ramo.id] = {
-      estado: notaFinal >= 4 ? (notaFinal >= 6 ? 'Califica' : 'Aprobado') : 'Reprobado',
-      nota: notaFinal
-    };
+  div.addEventListener("click", () => {
+    if (!puedeDesbloquear(ramo)) return;
 
-    localStorage.setItem('estadoRamos', JSON.stringify(estadoRamos));
-    actualizarVista();
+    const nota = prompt(`Ingresa la nota final de "${ramo.nombre}":`, "4.0");
+    const notaNum = parseFloat(nota);
+    if (isNaN(notaNum) || notaNum < 1.0 || notaNum > 7.0) return alert("Nota inválida.");
+
+    div.classList.remove("bloqueado");
+    div.classList.add("aprobado");
+    if (notaNum >= 6.0) {
+      div.classList.add("califica");
+    }
+
+    const notaSpan = document.createElement("div");
+    notaSpan.className = "nota";
+    notaSpan.textContent = `Nota: ${notaNum}`;
+    div.appendChild(notaSpan);
+
+    aprobados.add(ramo.nombre);
+    desbloquearRamos();
+    actualizarProgreso();
   });
 
   return div;
 }
 
-function habilitado(ramo) {
-  return ramo.requisitos.every(r => estadoRamos[r]?.estado === 'Aprobado' || estadoRamos[r]?.estado === 'Califica');
+function puedeDesbloquear(ramo) {
+  return ramo.requisitos.every(req => aprobados.has(req) || req.includes("DEL SEMESTRE") || aprobados.has("DEL SEMESTRE 1 al 7 aprobados"));
 }
 
-function actualizarVista() {
-  const contenedor = document.getElementById('malla');
-  contenedor.innerHTML = '';
-  ramos.forEach(r => {
-    const elemento = crearRamo(r);
-    if (estadoRamos[r.id]?.estado === 'Aprobado') elemento.classList.add('aprobado');
-    if (estadoRamos[r.id]?.estado === 'Califica') elemento.classList.add('califica');
-    contenedor.appendChild(elemento);
+function desbloquearRamos() {
+  ramos.forEach((ramo, index) => {
+    const div = document.getElementById("ramo-" + index);
+    if (puedeDesbloquear(ramo)) {
+      div.classList.remove("bloqueado");
+    }
   });
-  actualizarProgreso();
 }
 
-function actualizarProgreso() {
-  const total = ramos.length;
-  const completados = Object.values(estadoRamos).filter(e => e.estado === 'Aprobado' || e.estado === 'Califica').length;
-  const porcentaje = Math.round((completados / total) * 100);
-  document.getElementById('careerProgress').value = porcentaje;
-  document.getElementById('progressText').textContent = `${porcentaje}%`;
-}
+ramos.forEach((ramo, index) => {
+  const div = crearRamo(ramo, index);
+  container.appendChild(div);
+});
 
-document.addEventListener('DOMContentLoaded', actualizarVista);
+actualizarProgreso();
