@@ -38,12 +38,23 @@ main {
 }
 
 .anio {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   margin-bottom: 3rem;
   padding: 1rem;
   background-color: var(--celeste);
   border-radius: 8px;
 }
-
+.semestre {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--blanco);
+  border: 1px solid var(--azul-medio);
+  padding: 1rem;
+  border-radius: 6px;
+}
 .semestre {
   margin-top: 1rem;
   background-color: var(--blanco);
@@ -54,9 +65,9 @@ main {
 
 .ramos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 .ramo {
@@ -143,4 +154,8 @@ main {
 #progreso-text {
   font-weight: bold;
   color: var(--blanco);
+}
+.anio h2, .semestre h3 {
+  margin: 0;
+  text-align: left;
 }
