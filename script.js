@@ -1,7 +1,7 @@
 const ramos = document.querySelectorAll('.ramo');
 const aprobados = new Set();
 
-// 🔁 Actualizar estado de cada ramo según requisitos
+// 🔁 Actualiza estado de ramos según sus requisitos
 function actualizarRamos() {
   ramos.forEach(ramo => {
     const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()) || [];
@@ -18,7 +18,7 @@ function actualizarRamos() {
   });
 }
 
-// ✅ Actualiza la barra de progreso
+// ✅ Actualiza barra de progreso
 function actualizarProgreso() {
   const total = ramos.length;
   const completados = aprobados.size;
@@ -28,9 +28,9 @@ function actualizarProgreso() {
   document.getElementById("progreso-text").textContent = `${porcentaje}% Completado`;
 }
 
-// 🖱️ Manejo de clic en cada ramo
+// 🖱️ Al hacer clic en un ramo
 ramos.forEach(ramo => {
-  ramo.classList.add('bloqueado'); // todos bloqueados al inicio (luego se desbloquean si aplica)
+  ramo.classList.add('bloqueado'); // Todos comienzan bloqueados, luego se actualizan
 
   ramo.addEventListener('click', () => {
     if (ramo.classList.contains('bloqueado') || ramo.classList.contains('aprobado')) return;
@@ -56,12 +56,11 @@ ramos.forEach(ramo => {
 
     aprobados.add(nombre);
 
-    // Desbloquear los que dependan de este ramo
+    // Desbloquea los ramos que este ramo habilita
     const abre = ramo.dataset.abre?.split(',').map(r => r.trim()) || [];
     abre.forEach(dep => {
       const depElem = Array.from(ramos).find(el => el.dataset.nombre === dep);
       if (depElem) {
-        // Verificamos si todos sus requisitos están cumplidos
         const requisitos = depElem.dataset.requisitos?.split(',').map(r => r.trim()) || [];
         const cumple = requisitos.every(req => aprobados.has(req) || req.includes("DEL SEMESTRE"));
         if (cumple) depElem.classList.remove("bloqueado");
@@ -73,6 +72,6 @@ ramos.forEach(ramo => {
   });
 });
 
-// Ejecutar al cargar para desbloquear los primeros ramos
+// 🟡 Iniciar desbloqueo inicial al cargar
 actualizarRamos();
 actualizarProgreso();
