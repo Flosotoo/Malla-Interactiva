@@ -1,24 +1,46 @@
 const ramos = document.querySelectorAll('.ramo');
 const aprobados = new Set();
+let datosGuardados = JSON.parse(localStorage.getItem('estadoRamos')) || {};
 
-// 🔁 Actualiza estado de ramos según sus requisitos
+function guardarEstado() {
+  localStorage.setItem('estadoRamos', JSON.stringify(datosGuardados));
+}
+
+// 🔁 Actualiza estado de ramos según requisitos
 function actualizarRamos() {
   ramos.forEach(ramo => {
+    const nombre = ramo.dataset.nombre;
     const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()) || [];
 
-    const desbloqueado = requisitos.every(req => 
-      aprobados.has(req) || req.includes("DEL SEMESTRE")
-    );
+    const desbloqueado = requisitos.every(req => aprobados.has(req) || req.includes("DEL SEMESTRE"));
 
     if (desbloqueado && !ramo.classList.contains('aprobado')) {
       ramo.classList.remove('bloqueado');
     } else if (!desbloqueado && !ramo.classList.contains('aprobado')) {
       ramo.classList.add('bloqueado');
     }
+
+    // Restaurar estado desde localStorage
+    if (datosGuardados[nombre]) {
+      const { nota, califica } = datosGuardados[nombre];
+
+      ramo.classList.remove('bloqueado');
+      ramo.classList.add('aprobado');
+      if (califica) {
+        ramo.classList.add('califica');
+      }
+
+      const notaDiv = document.createElement("div");
+      notaDiv.classList.add("nota");
+      notaDiv.textContent = `Nota: ${nota}`;
+      ramo.appendChild(notaDiv);
+
+      aprobados.add(nombre);
+    }
   });
 }
 
-// ✅ Actualiza barra de progreso
+// ✅ Barra de progreso
 function actualizarProgreso() {
   const total = ramos.length;
   const completados = aprobados.size;
@@ -28,14 +50,14 @@ function actualizarProgreso() {
   document.getElementById("progreso-text").textContent = `${porcentaje}% Completado`;
 }
 
-// 🖱️ Al hacer clic en un ramo
+// 🖱️ Clic en ramo
 ramos.forEach(ramo => {
-  ramo.classList.add('bloqueado'); // Todos comienzan bloqueados, luego se actualizan
+  const nombre = ramo.dataset.nombre;
+  ramo.classList.add('bloqueado');
 
   ramo.addEventListener('click', () => {
     if (ramo.classList.contains('bloqueado') || ramo.classList.contains('aprobado')) return;
 
-    const nombre = ramo.dataset.nombre;
     const nota = prompt(`Ingresa la nota final para "${nombre}" (1.0 a 7.0):`, "4.0");
     const notaNum = parseFloat(nota);
 
@@ -55,8 +77,14 @@ ramos.forEach(ramo => {
     ramo.appendChild(notaDiv);
 
     aprobados.add(nombre);
+    datosGuardados[nombre] = {
+      nota: notaNum,
+      califica: notaNum >= 6.0
+    };
 
-    // Desbloquea los ramos que este ramo habilita
+    guardarEstado();
+
+    // Desbloquear los que este ramo abre
     const abre = ramo.dataset.abre?.split(',').map(r => r.trim()) || [];
     abre.forEach(dep => {
       const depElem = Array.from(ramos).find(el => el.dataset.nombre === dep);
@@ -72,6 +100,6 @@ ramos.forEach(ramo => {
   });
 });
 
-// 🟡 Iniciar desbloqueo inicial al cargar
+// 🟡 Inicializar
 actualizarRamos();
 actualizarProgreso();
