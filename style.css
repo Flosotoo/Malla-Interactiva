@@ -1,161 +1,106 @@
-:root {
-  --azul-oscuro: #2F4156;
-  --azul-medio: #567CBD;
-  --celeste: #C8D9E6;
-  --beige: #F5EFEB;
-  --blanco: #FFFFFF;
-}
-
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f5efeb;
+  color: #2f4156;
   margin: 0;
   padding: 0;
-  background-color: var(--beige);
-  color: var(--azul-oscuro);
-}
-
-header {
-  background-color: var(--azul-oscuro);
-  color: var(--blanco);
-  padding: 1rem 2rem;
-  text-align: center;
 }
 
 h1 {
-  margin: 0;
-}
-
-h2, h3 {
-  margin-top: 2rem;
-  color: var(--azul-medio);
   text-align: center;
+  background-color: #2f4156;
+  color: white;
+  padding: 20px 0;
+  margin-bottom: 0;
 }
 
-main {
-  padding: 2rem;
+.contenedor-malla {
+  padding: 20px;
   max-width: 1200px;
   margin: auto;
 }
 
 .anio {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-  padding: 1rem;
-  background-color: var(--celeste);
+  margin-bottom: 40px;
+}
+
+.anio h2 {
+  background-color: #567cbd;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.semestre {
+  margin: 20px 0;
+  background-color: #ffffff;
+  padding: 15px;
+  border-left: 6px solid #567cbd;
   border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-.semestre {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background-color: var(--blanco);
-  border: 1px solid var(--azul-medio);
-  padding: 1rem;
-  border-radius: 6px;
-}
-.semestre {
-  margin-top: 1rem;
-  background-color: var(--blanco);
-  border: 1px solid var(--azul-medio);
-  padding: 1rem;
-  border-radius: 6px;
+
+.semestre h3 {
+  margin-top: 0;
+  color: #2f4156;
 }
 
 .ramos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1rem;
-  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .ramo {
-  background-color: var(--blanco);
-  border: 2px solid var(--azul-oscuro);
-  padding: 1rem;
+  flex: 1 1 200px;
+  padding: 12px;
+  border: 2px solid #567cbd;
   border-radius: 6px;
   text-align: center;
   cursor: pointer;
+  background-color: #c8d9e6;
+  transition: all 0.2s ease;
   font-weight: 500;
-  position: relative;
-  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .ramo:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #b6cbe4;
 }
 
 .ramo.bloqueado {
   background-color: #e0e0e0;
-  border-color: #bbb;
-  color: #777;
+  color: #999;
+  border-style: dashed;
   cursor: not-allowed;
-  opacity: 0.7;
 }
 
 .ramo.aprobado {
-  background-color: var(--celeste);
-  border-color: var(--azul-medio);
+  background-color: #c6ecc6;
+  border-color: #4caf50;
+  color: #2e7031;
 }
 
-.ramo.califica {
-  background-color: #c5e6c5;
-  border-color: green;
-}
-
-.ramo .nota {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.ramo.aprobado:not(.califica)::after {
-  content: "✔";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: var(--azul-medio);
+.promedio {
+  margin-top: 12px;
   font-weight: bold;
+  font-size: 1em;
 }
 
-.ramo.califica::after {
-  content: "★";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: green;
-  font-weight: bold;
-}
-
-/* Barra de progreso */
 .progreso-container {
-  margin-top: 1rem;
-}
-
-#barra-progreso {
-  width: 80%;
-  margin: 0.5rem auto;
-  height: 20px;
-  background-color: var(--celeste);
-  border-radius: 10px;
+  background-color: #c8d9e6;
+  height: 30px;
+  width: 100%;
+  border-radius: 5px;
   overflow: hidden;
-  border: 1px solid var(--azul-medio);
+  margin: 20px auto;
+  max-width: 800px;
+  border: 2px solid #567cbd;
 }
 
 #progreso {
+  background-color: #4caf50;
   height: 100%;
   width: 0%;
-  background-color: var(--azul-medio);
-  transition: width 0.5s ease-in-out;
-}
-
-#progreso-text {
-  font-weight: bold;
-  color: var(--blanco);
-}
-.anio h2, .semestre h3 {
-  margin: 0;
-  text-align: left;
+  transition: width 0.4s ease;
 }
