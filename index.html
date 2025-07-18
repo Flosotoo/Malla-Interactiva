@@ -1,118 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ing. En Informática</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>Ing. En Informática</h1>
-    <div class="barra-progreso">
-      <div class="progreso" id="progreso"></div>
+    <div id="progresoContainer">
+      <div id="progresoBarra"></div>
+      <span id="progresoTexto">0% completado</span>
     </div>
   </header>
-<div style="text-align: center; margin-top: 20px;">
-  <button onclick="reiniciarMalla()" style="background-color: #567CBD; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
-    Reiniciar Malla
-  </button>
-</div>
 
-  <main>
-    <!-- 1er Año -->
+  <main id="malla">
+
+    <!-- Año 1 -->
     <section class="año">
       <h2>1er Año</h2>
 
-      <div class="semestre" data-semestre="Semestre I">
+      <div class="semestre">
         <h3>Semestre I</h3>
-        <div class="ramo" data-nombre="Fundamentos de Programación" data-requiere="" data-desbloquea="Desarrollo Orientado a Objetos">Fundamentos de Programación</div>
-        <div class="ramo" data-nombre="Introducción al Cloud Computing" data-requiere="" data-desbloquea="">Introducción al Cloud Computing</div>
-        <div class="ramo" data-nombre="Bases de Innovación" data-requiere="" data-desbloquea="Ingeniería de Requisitos">Bases de Innovación</div>
-        <div class="ramo" data-nombre="Nivelación Matemática" data-requiere="" data-desbloquea="Matemática Aplicada">Nivelación Matemática</div>
-        <div class="ramo" data-nombre="Habilidades de Comunicación" data-requiere="" data-desbloquea="">Habilidades de Comunicación</div>
+        <div class="ramo" data-nombre="Fundamentos de Programación" data-desbloquea="Desarrollo Orientado a Objetos">Fundamentos de Programación</div>
+        <div class="ramo" data-nombre="Introducción al Cloud Computing">Introducción al Cloud Computing</div>
+        <div class="ramo" data-nombre="Bases de Innovación" data-desbloquea="Ingeniería de Requisitos">Bases de Innovación</div>
+        <div class="ramo" data-nombre="Nivelación Matemática" data-desbloquea="Matemática Aplicada">Nivelación Matemática</div>
+        <div class="ramo" data-nombre="Habilidades de Comunicación">Habilidades de Comunicación</div>
         <div class="promedio"></div>
       </div>
 
-      <div class="semestre" data-semestre="Semestre II">
+      <div class="semestre">
         <h3>Semestre II</h3>
-        <div class="ramo" data-nombre="Desarrollo Orientado a Objetos" data-requiere="Fundamentos de Programación" data-desbloquea="Desarrollo Fullstack I, Desarrollo de Aplicaciones Móviles, Desarrollo Fullstack II">Desarrollo Orientado a Objetos</div>
-        <div class="ramo" data-nombre="Base de Datos Aplicada I" data-requiere="" data-desbloquea="Base de Datos Aplicada II">Base de Datos Aplicada I</div>
-        <div class="ramo" data-nombre="Ingeniería de Requisitos" data-requiere="Bases de Innovación" data-desbloquea="Ingeniería de Software">Ingeniería de Requisitos</div>
-        <div class="ramo" data-nombre="Matemática Aplicada" data-requiere="Nivelación Matemática" data-desbloquea="Estadística Descriptiva">Matemática Aplicada</div>
-        <div class="ramo" data-nombre="Inglés Elemental I" data-requiere="" data-desbloquea="Inglés Elemental II">Inglés Elemental I</div>
-        <div class="ramo" data-nombre="Fundamentos de Antropología" data-requiere="" data-desbloquea="Ética para el Trabajo">Fundamentos de Antropología</div>
+        <div class="ramo" data-nombre="Desarrollo Orientado a Objetos" data-desbloquea="Desarrollo Fullstack I, Desarrollo de Aplicaciones Móviles">Desarrollo Orientado a Objetos</div>
+        <div class="ramo" data-nombre="Base de Datos Aplicada I" data-desbloquea="Base de Datos Aplicada II">Base de Datos Aplicada I</div>
+        <div class="ramo" data-nombre="Ingeniería de Requisitos" data-desbloquea="Ingeniería de Software">Ingeniería de Requisitos</div>
+        <div class="ramo" data-nombre="Matemática Aplicada" data-desbloquea="Estadística Descriptiva">Matemática Aplicada</div>
+        <div class="ramo" data-nombre="Inglés Elemental I" data-desbloquea="Inglés Elemental II">Inglés Elemental I</div>
+        <div class="ramo" data-nombre="Fundamentos de Antropología" data-desbloquea="Ética para el Trabajo">Fundamentos de Antropología</div>
         <div class="promedio"></div>
       </div>
     </section>
 
-    <!-- 2do Año -->
+    <!-- Año 2 -->
     <section class="año">
       <h2>2do Año</h2>
 
-      <div class="semestre" data-semestre="Semestre III">
+      <div class="semestre">
         <h3>Semestre III</h3>
-        <div class="ramo" data-nombre="Desarrollo Fullstack I" data-requiere="Desarrollo Orientado a Objetos" data-desbloquea="Desarrollo Fullstack II">Desarrollo Fullstack I</div>
-        <div class="ramo" data-nombre="Base de Datos Aplicada II" data-requiere="Base de Datos Aplicada I" data-desbloquea="Taller de Base de Datos">Base de Datos Aplicada II</div>
-        <div class="ramo" data-nombre="Ingeniería de Software" data-requiere="Ingeniería de Requisitos" data-desbloquea="">Ingeniería de Software</div>
-        <div class="ramo" data-nombre="Inglés Elemental II" data-requiere="Inglés Elemental I" data-desbloquea="Inglés Intermedio I">Inglés Elemental II</div>
+        <div class="ramo" data-nombre="Desarrollo Fullstack I" data-desbloquea="Desarrollo Fullstack II">Desarrollo Fullstack I</div>
+        <div class="ramo" data-nombre="Base de Datos Aplicada II" data-desbloquea="Taller de Base de Datos">Base de Datos Aplicada II</div>
+        <div class="ramo" data-nombre="Ingeniería de Software">Ingeniería de Software</div>
+        <div class="ramo" data-nombre="Inglés Elemental II" data-desbloquea="Inglés Intermedio I">Inglés Elemental II</div>
         <div class="promedio"></div>
       </div>
 
-      <div class="semestre" data-semestre="Semestre IV">
+      <div class="semestre">
         <h3>Semestre IV</h3>
-        <div class="ramo" data-nombre="Desarrollo Fullstack II" data-requiere="Desarrollo Fullstack I, Desarrollo Orientado a Objetos" data-desbloquea="Desarrollo Fullstack III">Desarrollo Fullstack II</div>
-        <div class="ramo" data-nombre="Desarrollo de Aplicaciones Móviles" data-requiere="Desarrollo Orientado a Objetos" data-desbloquea="">Desarrollo de Aplicaciones Móviles</div>
-        <div class="ramo" data-nombre="Taller de Base de Datos" data-requiere="Base de Datos Aplicada II" data-desbloquea="">Taller de Base de Datos</div>
-        <div class="ramo" data-nombre="Estadística Descriptiva" data-requiere="Matemática Aplicada" data-desbloquea="">Estadística Descriptiva</div>
-        <div class="ramo" data-nombre="Inglés Intermedio I" data-requiere="Inglés Elemental II" data-desbloquea="">Inglés Intermedio I</div>
-        <div class="ramo" data-nombre="Ética para el Trabajo" data-requiere="Fundamentos de Antropología" data-desbloquea="Ética Profesional">Ética para el Trabajo</div>
+        <div class="ramo" data-nombre="Desarrollo Fullstack II" data-desbloquea="Desarrollo Fullstack III">Desarrollo Fullstack II</div>
+        <div class="ramo" data-nombre="Desarrollo de Aplicaciones Móviles">Desarrollo de Aplicaciones Móviles</div>
+        <div class="ramo" data-nombre="Taller de Base de Datos">Taller de Base de Datos</div>
+        <div class="ramo" data-nombre="Estadística Descriptiva">Estadística Descriptiva</div>
+        <div class="ramo" data-nombre="Inglés Intermedio I">Inglés Intermedio I</div>
+        <div class="ramo" data-nombre="Ética para el Trabajo" data-desbloquea="Ética Profesional">Ética para el Trabajo</div>
         <div class="promedio"></div>
       </div>
     </section>
 
-    <!-- 3er Año -->
+    <!-- Año 3 -->
     <section class="año">
       <h2>3er Año</h2>
 
-      <div class="semestre" data-semestre="Semestre V">
+      <div class="semestre">
         <h3>Semestre V</h3>
-        <div class="ramo" data-nombre="Desarrollo Fullstack III" data-requiere="Desarrollo Fullstack II" data-desbloquea="Seguridad y Calidad en el Desarrollo de Software">Desarrollo Fullstack III</div>
-        <div class="ramo" data-nombre="Introducción a Herramientas DevOps" data-requiere="" data-desbloquea="">Introducción a Herramientas DevOps</div>
-        <div class="ramo" data-nombre="Evaluación de Proyectos de Software" data-requiere="" data-desbloquea="Gestión de Proyectos de Software">Evaluación de Proyectos de Software</div>
+        <div class="ramo" data-nombre="Desarrollo Fullstack III" data-desbloquea="Seguridad y Calidad en el Desarrollo de Software">Desarrollo Fullstack III</div>
+        <div class="ramo" data-nombre="Introducción a Herramientas DevOps">Introducción a Herramientas DevOps</div>
+        <div class="ramo" data-nombre="Evaluación de Proyectos de Software" data-desbloquea="Gestión de Proyectos de Software">Evaluación de Proyectos de Software</div>
         <div class="promedio"></div>
       </div>
 
-      <div class="semestre" data-semestre="Semestre VI">
+      <div class="semestre">
         <h3>Semestre VI</h3>
-        <div class="ramo" data-nombre="Desarrollo Cloud Native I" data-requiere="" data-desbloquea="Desarrollo Cloud Native II">Desarrollo Cloud Native I</div>
-        <div class="ramo" data-nombre="Seguridad y Calidad en el Desarrollo de Software" data-requiere="Desarrollo Fullstack III" data-desbloquea="">Seguridad y Calidad en el Desarrollo de Software</div>
-        <div class="ramo" data-nombre="Gestión de Proyectos de Software" data-requiere="Evaluación de Proyectos de Software" data-desbloquea="">Gestión de Proyectos de Software</div>
+        <div class="ramo" data-nombre="Desarrollo Cloud Native I">Desarrollo Cloud Native I</div>
+        <div class="ramo" data-nombre="Seguridad y Calidad en el Desarrollo de Software">Seguridad y Calidad en el Desarrollo de Software</div>
+        <div class="ramo" data-nombre="Gestión de Proyectos de Software">Gestión de Proyectos de Software</div>
         <div class="promedio"></div>
       </div>
     </section>
 
-    <!-- 4to Año -->
+    <!-- Año 4 -->
     <section class="año">
       <h2>4to Año</h2>
 
-      <div class="semestre" data-semestre="Semestre VII">
+      <div class="semestre">
         <h3>Semestre VII</h3>
-        <div class="ramo" data-nombre="Desarrollo Cloud Native II" data-requiere="Desarrollo Cloud Native I" data-desbloquea="Taller Aplicado de Software">Desarrollo Cloud Native II</div>
-        <div class="ramo" data-nombre="Arquitecturas TI Contemporáneas" data-requiere="" data-desbloquea="Taller de Tecnologías de Vanguardia">Arquitecturas TI Contemporáneas</div>
-        <div class="ramo" data-nombre="BPM Aplicado" data-requiere="" data-desbloquea="">BPM Aplicado</div>
-        <div class="ramo" data-nombre="Ética Profesional" data-requiere="Ética para el Trabajo" data-desbloquea="">Ética Profesional</div>
+        <div class="ramo" data-nombre="Desarrollo Cloud Native II" data-desbloquea="Taller Aplicado de Software">Desarrollo Cloud Native II</div>
+        <div class="ramo" data-nombre="Arquitecturas TI Contemporáneas" data-desbloquea="Taller de Tecnologías de Vanguardia">Arquitecturas TI Contemporáneas</div>
+        <div class="ramo" data-nombre="BPM Aplicado">BPM Aplicado</div>
+        <div class="ramo" data-nombre="Ética Profesional">Ética Profesional</div>
         <div class="promedio"></div>
       </div>
 
-      <div class="semestre" data-semestre="Semestre VIII">
+      <div class="semestre">
         <h3>Semestre VIII</h3>
-        <div class="ramo" data-nombre="Taller de Tecnologías de Vanguardia" data-requiere="Arquitecturas TI Contemporáneas" data-desbloquea="">Taller de Tecnologías de Vanguardia</div>
-        <div class="ramo" data-nombre="Taller Aplicado de Software" data-requiere="Desarrollo Cloud Native II" data-desbloquea="">Taller Aplicado de Software</div>
-        <div class="ramo" data-nombre="Práctica Profesional" data-requiere="TODOS SEMESTRES APROBADOS" data-desbloquea="">Práctica Profesional</div>
+        <div class="ramo" data-nombre="Taller de Tecnologías de Vanguardia">Taller de Tecnologías de Vanguardia</div>
+        <div class="ramo" data-nombre="Taller Aplicado de Software">Taller Aplicado de Software</div>
+        <div class="ramo" data-nombre="Práctica Profesional">Práctica Profesional</div>
         <div class="promedio"></div>
       </div>
     </section>
+
+    <!-- Botón de reinicio -->
+    <div style="text-align: center; margin-top: 20px;">
+      <button onclick="reiniciarMalla()" style="background-color: #567CBD; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+        Reiniciar Malla
+      </button>
+    </div>
   </main>
 
   <script src="script.js"></script>
