@@ -99,3 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
   actualizarProgreso();
   calcularPromedios();
 });
+function reiniciarMalla() {
+  if (confirm("¿Estás seguro de que quieres reiniciar todos los datos? Esta acción no se puede deshacer.")) {
+    localStorage.clear();
+    location.reload();
+  }
+}
+
