@@ -1,108 +1,117 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const ramos = document.querySelectorAll(".ramo");
-  const progreso = document.getElementById("progreso");
+document.addEventListener('DOMContentLoaded', () => {
+  const ramos = document.querySelectorAll('.ramo');
+  const progresoBarra = document.getElementById('progresoBarra');
+  const progresoTexto = document.getElementById('progresoTexto');
+  const promedioSemestre = document.querySelectorAll('.promedio');
+  const botonReiniciar = document.getElementById('reiniciar');
 
-  // Cargar estado guardado
-  const estadoGuardado = JSON.parse(localStorage.getItem("estadoRamos")) || {};
+  // Cargar datos almacenados
+  ramos.forEach(ramo => {
+    const id = ramo.dataset.id;
+    const aprobado = localStorage.getItem(`aprobado_${id}`) === 'true';
+    const nota = localStorage.getItem(`nota_${id}`);
 
-  ramos.forEach((ramo) => {
-    const nombre = ramo.dataset.nombre;
-    if (estadoGuardado[nombre]) {
-      const { aprobado, nota } = estadoGuardado[nombre];
-      if (aprobado) {
-        ramo.classList.add("aprobado");
-        if (nota !== undefined) {
-          ramo.setAttribute("data-nota", nota);
-          ramo.textContent = `${nombre} - ${nota}`;
-        }
-      }
+    if (aprobado) {
+      ramo.classList.add('aprobado');
     }
 
-    // Inicialmente bloquear si tiene requisitos
-    if (ramo.dataset.requiere) {
-      ramo.classList.add("bloqueado");
+    if (nota) {
+      const spanNota = document.createElement('span');
+      spanNota.textContent = ` (Nota: ${nota})`;
+      ramo.appendChild(spanNota);
     }
 
-    // Click para aprobar ramo
-    ramo.addEventListener("click", function () {
-      if (ramo.classList.contains("bloqueado")) return;
+    const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
+    if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
+      ramo.classList.add('desbloqueado');
+    }
+  });
 
-      const nota = prompt("Ingresa la nota (1.0 a 7.0):");
-      const notaFloat = parseFloat(nota);
+  actualizarProgreso();
+  actualizarPromedios();
 
-      if (!isNaN(notaFloat) && notaFloat >= 1.0 && notaFloat <= 7.0) {
-        ramo.classList.add("aprobado");
-        ramo.setAttribute("data-nota", notaFloat);
-        ramo.textContent = `${nombre} - ${notaFloat}`;
-        estadoGuardado[nombre] = { aprobado: true, nota: notaFloat };
-
-        // Desbloquear ramos dependientes
-        const desbloquea = ramo.dataset.desbloquea.split(",").map(r => r.trim());
-        desbloquea.forEach((rDesbloqueado) => {
-          document.querySelectorAll(`[data-nombre="${rDesbloqueado}"]`).forEach((targetRamo) => {
-            const requisitos = targetRamo.dataset.requiere.split(",").map(r => r.trim());
-            const todosAprobados = requisitos.every(req => {
-              return estadoGuardado[req]?.aprobado;
-            });
-            if (todosAprobados) {
-              targetRamo.classList.remove("bloqueado");
-            }
-          });
-        });
-
-        guardarEstado();
-        actualizarProgreso();
-        calcularPromedios();
-      } else {
-        alert("Nota inválida. Debe estar entre 1.0 y 7.0");
+  ramos.forEach(ramo => {
+    ramo.addEventListener('click', () => {
+      if (!ramo.classList.contains('desbloqueado')) {
+        alert('Este ramo aún no está desbloqueado.');
+        return;
       }
+
+      const id = ramo.dataset.id;
+      const nota = prompt(`Ingresa tu nota final para "${ramo.textContent.trim()}":`);
+
+      if (nota === null) return; // Cancelado
+      const notaNum = parseFloat(nota);
+      if (isNaN(notaNum) || notaNum < 1 || notaNum > 7) {
+        alert('Nota inválida. Debe ser un número entre 1.0 y 7.0');
+        return;
+      }
+
+      ramo.classList.add('aprobado');
+      localStorage.setItem(`aprobado_${id}`, true);
+      localStorage.setItem(`nota_${id}`, notaNum);
+
+      if (!ramo.querySelector('span')) {
+        const spanNota = document.createElement('span');
+        spanNota.textContent = ` (Nota: ${notaNum})`;
+        ramo.appendChild(spanNota);
+      }
+
+      desbloquearRamos();
+      actualizarProgreso();
+      actualizarPromedios();
     });
   });
 
-  function guardarEstado() {
-    localStorage.setItem("estadoRamos", JSON.stringify(estadoGuardado));
+  function desbloquearRamos() {
+    ramos.forEach(ramo => {
+      if (ramo.classList.contains('aprobado')) return;
+
+      const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
+      if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
+        ramo.classList.add('desbloqueado');
+      }
+    });
   }
 
   function actualizarProgreso() {
     const total = ramos.length;
-    const aprobados = [...ramos].filter((r) => r.classList.contains("aprobado")).length;
-    const porcentaje = (aprobados / total) * 100;
-    progreso.style.width = `${porcentaje}%`;
+    const aprobados = [...ramos].filter(r => r.classList.contains('aprobado')).length;
+    const porcentaje = Math.round((aprobados / total) * 100);
+    progresoBarra.style.width = `${porcentaje}%`;
+    progresoTexto.textContent = `${porcentaje}% Completado`;
   }
 
-  function calcularPromedios() {
-    const semestres = document.querySelectorAll(".semestre");
+  function actualizarPromedios() {
+    promedioSemestre.forEach(span => {
+      const semestre = span.closest('.semestre');
+      const ramosSemestre = semestre.querySelectorAll('.ramo.aprobado');
+      const notas = [];
 
-    semestres.forEach((semestre) => {
-      const ramosSemestre = semestre.querySelectorAll(".ramo.aprobado");
-      const notas = [...ramosSemestre]
-        .map((r) => parseFloat(r.dataset.nota))
-        .filter((nota) => !isNaN(nota));
+      ramosSemestre.forEach(r => {
+        const id = r.dataset.id;
+        const nota = parseFloat(localStorage.getItem(`nota_${id}`));
+        if (!isNaN(nota)) notas.push(nota);
+      });
 
-      const promedioDiv = semestre.querySelector(".promedio");
       if (notas.length > 0) {
         const promedio = (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2);
-        promedioDiv.textContent = `Promedio: ${promedio}`;
+        span.textContent = `Promedio del semestre: ${promedio}`;
+        span.classList.remove('alto');
 
-        if (promedio >= 6.0) {
-          promedioDiv.style.color = "green";
-        } else {
-          promedioDiv.style.color = "";
+        if (parseFloat(promedio) >= 6.0) {
+          span.classList.add('alto');
         }
       } else {
-        promedioDiv.textContent = "";
+        span.textContent = 'Promedio del semestre: —';
       }
     });
   }
 
-  // Ejecutar inicialización
-  actualizarProgreso();
-  calcularPromedios();
+  botonReiniciar.addEventListener('click', () => {
+    if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
+      localStorage.clear();
+      location.reload();
+    }
+  });
 });
-function reiniciarMalla() {
-  if (confirm("¿Estás seguro de que quieres reiniciar todos los datos? Esta acción no se puede deshacer.")) {
-    localStorage.clear();
-    location.reload();
-  }
-}
-
