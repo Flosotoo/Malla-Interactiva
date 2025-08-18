@@ -2,17 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const ramos = document.querySelectorAll('.ramo');
   const progresoBarra = document.getElementById('progresoBarra');
   const progresoTexto = document.getElementById('progresoTexto');
+  const botonReiniciar = document.getElementById('reiniciar');
 
-  // Cargar estado almacenado
+  // Cargar datos almacenados
   ramos.forEach(ramo => {
-    const nombre = ramo.dataset.nombre;
-    const aprobado = localStorage.getItem(`aprobado_${nombre}`) === 'true';
+    const id = ramo.dataset.id;
+    const aprobado = localStorage.getItem(`aprobado_${id}`) === 'true';
 
     if (aprobado) {
       ramo.classList.add('aprobado');
     }
 
-    const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
+    const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
     if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
       ramo.classList.add('desbloqueado');
     }
@@ -20,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   actualizarProgreso();
 
-  // Evento de click en ramos
   ramos.forEach(ramo => {
     ramo.addEventListener('click', () => {
       if (!ramo.classList.contains('desbloqueado')) {
@@ -28,9 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const nombre = ramo.dataset.nombre;
+      const id = ramo.dataset.id;
+
       ramo.classList.add('aprobado');
-      localStorage.setItem(`aprobado_${nombre}`, true);
+      localStorage.setItem(`aprobado_${id}`, true);
 
       desbloquearRamos();
       actualizarProgreso();
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ramos.forEach(ramo => {
       if (ramo.classList.contains('aprobado')) return;
 
-      const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
+      const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
       if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
         ramo.classList.add('desbloqueado');
       }
@@ -55,12 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
     progresoBarra.style.width = `${porcentaje}%`;
     progresoTexto.textContent = `${porcentaje}% Completado`;
   }
-});
 
-// Función para reiniciar la malla
-function reiniciarMalla() {
-  if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
-    localStorage.clear();
-    location.reload();
-  }
-}
+  botonReiniciar.addEventListener('click', () => {
+    if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
+      localStorage.clear();
+      location.reload();
+    }
+  });
+});
