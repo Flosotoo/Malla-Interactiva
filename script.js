@@ -2,34 +2,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const ramos = document.querySelectorAll('.ramo');
   const progresoBarra = document.getElementById('progresoBarra');
   const progresoTexto = document.getElementById('progresoTexto');
-  const promedioSemestre = document.querySelectorAll('.promedio');
-  const botonReiniciar = document.getElementById('reiniciar');
 
-  // Cargar datos almacenados
+  // Cargar estado almacenado
   ramos.forEach(ramo => {
-    const id = ramo.dataset.id;
-    const aprobado = localStorage.getItem(`aprobado_${id}`) === 'true';
-    const nota = localStorage.getItem(`nota_${id}`);
+    const nombre = ramo.dataset.nombre;
+    const aprobado = localStorage.getItem(`aprobado_${nombre}`) === 'true';
 
     if (aprobado) {
       ramo.classList.add('aprobado');
     }
 
-    if (nota) {
-      const spanNota = document.createElement('span');
-      spanNota.textContent = ` (Nota: ${nota})`;
-      ramo.appendChild(spanNota);
-    }
-
-    const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
+    const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
     if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
       ramo.classList.add('desbloqueado');
     }
   });
 
   actualizarProgreso();
-  actualizarPromedios();
 
+  // Evento de click en ramos
   ramos.forEach(ramo => {
     ramo.addEventListener('click', () => {
       if (!ramo.classList.contains('desbloqueado')) {
@@ -37,29 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const id = ramo.dataset.id;
-      const nota = prompt(`Ingresa tu nota final para "${ramo.textContent.trim()}":`);
-
-      if (nota === null) return; // Cancelado
-      const notaNum = parseFloat(nota);
-      if (isNaN(notaNum) || notaNum < 1 || notaNum > 7) {
-        alert('Nota inválida. Debe ser un número entre 1.0 y 7.0');
-        return;
-      }
-
+      const nombre = ramo.dataset.nombre;
       ramo.classList.add('aprobado');
-      localStorage.setItem(`aprobado_${id}`, true);
-      localStorage.setItem(`nota_${id}`, notaNum);
-
-      if (!ramo.querySelector('span')) {
-        const spanNota = document.createElement('span');
-        spanNota.textContent = ` (Nota: ${notaNum})`;
-        ramo.appendChild(spanNota);
-      }
+      localStorage.setItem(`aprobado_${nombre}`, true);
 
       desbloquearRamos();
       actualizarProgreso();
-      actualizarPromedios();
     });
   });
 
@@ -67,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ramos.forEach(ramo => {
       if (ramo.classList.contains('aprobado')) return;
 
-      const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
+      const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
       if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
         ramo.classList.add('desbloqueado');
       }
@@ -81,37 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
     progresoBarra.style.width = `${porcentaje}%`;
     progresoTexto.textContent = `${porcentaje}% Completado`;
   }
-
-  function actualizarPromedios() {
-    promedioSemestre.forEach(span => {
-      const semestre = span.closest('.semestre');
-      const ramosSemestre = semestre.querySelectorAll('.ramo.aprobado');
-      const notas = [];
-
-      ramosSemestre.forEach(r => {
-        const id = r.dataset.id;
-        const nota = parseFloat(localStorage.getItem(`nota_${id}`));
-        if (!isNaN(nota)) notas.push(nota);
-      });
-
-      if (notas.length > 0) {
-        const promedio = (notas.reduce((a, b) => a + b, 0) / notas.length).toFixed(2);
-        span.textContent = `Promedio del semestre: ${promedio}`;
-        span.classList.remove('alto');
-
-        if (parseFloat(promedio) >= 6.0) {
-          span.classList.add('alto');
-        }
-      } else {
-        span.textContent = 'Promedio del semestre: —';
-      }
-    });
-  }
-
-  botonReiniciar.addEventListener('click', () => {
-    if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
-      localStorage.clear();
-      location.reload();
-    }
-  });
 });
+
+// Función para reiniciar la malla
+function reiniciarMalla() {
+  if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
+    localStorage.clear();
+    location.reload();
+  }
+}
