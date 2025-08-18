@@ -2,279 +2,98 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ing. En Informática</title>
-  <style>
-    :root {
-      --azul-oscuro: #2F4156;
-      --azul: #567CBD;
-      --celeste: #C8D9E6;
-      --beige: #F5EFEB;
-      --blanco: #FFFFFF;
-      --verde: #4CAF50;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background-color: var(--beige);
-      color: var(--azul-oscuro);
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: var(--azul);
-      color: var(--blanco);
-      padding: 20px;
-      text-align: center;
-    }
-
-    h1 { margin: 0; font-size: 28px; }
-    h2, h3 { margin: 10px 0; }
-
-    main { padding: 20px; }
-
-    .año {
-      margin-bottom: 40px;
-      background-color: var(--blanco);
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(47, 65, 86, 0.1);
-      padding: 20px;
-    }
-
-    .semestre {
-      margin-bottom: 20px;
-      padding: 15px;
-      border: 2px solid var(--celeste);
-      border-radius: 6px;
-    }
-
-    .ramo {
-      padding: 10px;
-      margin: 6px 0;
-      background-color: var(--celeste);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .ramo:hover {
-      background-color: var(--azul);
-      color: var(--blanco);
-    }
-
-    .ramo.aprobado {
-      background-color: var(--verde);
-      color: var(--blanco);
-    }
-
-    .ramo.desbloqueado {
-      border: 2px dashed var(--azul);
-    }
-
-    #progresoContainer {
-      margin-top: 10px;
-      background-color: var(--celeste);
-      border-radius: 10px;
-      height: 24px;
-      width: 80%;
-      margin-left: auto;
-      margin-right: auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #progresoBarra {
-      height: 100%;
-      background-color: var(--verde);
-      width: 0%;
-      transition: width 0.3s ease-in-out;
-    }
-
-    #progresoTexto {
-      position: absolute;
-      width: 100%;
-      text-align: center;
-      line-height: 24px;
-      color: var(--azul-oscuro);
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    button {
-      background-color: #567CBD;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <h1>Ing. En Informática</h1>
-    <div id="progresoContainer">
-      <div id="progresoBarra"></div>
-      <span id="progresoTexto">0% completado</span>
-    </div>
   </header>
 
-  <main id="malla">
-
-    <!-- Año 1 -->
-    <section class="año">
-      <h2>1er Año</h2>
-      <div class="semestre">
-        <h3>Semestre I</h3>
-        <div class="ramo" data-nombre="Fundamentos de Programación" data-desbloquea="Desarrollo Orientado a Objetos">Fundamentos de Programación</div>
-        <div class="ramo" data-nombre="Introducción al Cloud Computing">Introducción al Cloud Computing</div>
-        <div class="ramo" data-nombre="Bases de Innovación" data-desbloquea="Ingeniería de Requisitos">Bases de Innovación</div>
-        <div class="ramo" data-nombre="Nivelación Matemática" data-desbloquea="Matemática Aplicada">Nivelación Matemática</div>
-        <div class="ramo" data-nombre="Habilidades de Comunicación">Habilidades de Comunicación</div>
+  <main>
+    <!-- 1er Año -->
+    <section>
+      <h2>1er Año - Semestre I</h2>
+      <div class="ramo" data-id="fundamentos" data-requisitos="">
+        Fundamentos de Programación
       </div>
-
-      <div class="semestre">
-        <h3>Semestre II</h3>
-        <div class="ramo" data-nombre="Desarrollo Orientado a Objetos" data-desbloquea="Desarrollo Fullstack I, Desarrollo de Aplicaciones Móviles">Desarrollo Orientado a Objetos</div>
-        <div class="ramo" data-nombre="Base de Datos Aplicada I" data-desbloquea="Base de Datos Aplicada II">Base de Datos Aplicada I</div>
-        <div class="ramo" data-nombre="Ingeniería de Requisitos" data-desbloquea="Ingeniería de Software">Ingeniería de Requisitos</div>
-        <div class="ramo" data-nombre="Matemática Aplicada" data-desbloquea="Estadística Descriptiva">Matemática Aplicada</div>
-        <div class="ramo" data-nombre="Inglés Elemental I" data-desbloquea="Inglés Elemental II">Inglés Elemental I</div>
-        <div class="ramo" data-nombre="Fundamentos de Antropología" data-desbloquea="Ética para el Trabajo">Fundamentos de Antropología</div>
+      <div class="ramo" data-id="cloud" data-requisitos="">
+        Introducción al Cloud Computing
+      </div>
+      <div class="ramo" data-id="innovacion" data-requisitos="">
+        Bases de Innovación
+      </div>
+      <div class="ramo" data-id="nivelacion" data-requisitos="">
+        Nivelación Matemática
+      </div>
+      <div class="ramo" data-id="comunicacion" data-requisitos="">
+        Habilidades de Comunicación
       </div>
     </section>
 
-    <!-- Año 2 -->
-    <section class="año">
-      <h2>2do Año</h2>
-      <div class="semestre">
-        <h3>Semestre III</h3>
-        <div class="ramo" data-nombre="Desarrollo Fullstack I" data-desbloquea="Desarrollo Fullstack II">Desarrollo Fullstack I</div>
-        <div class="ramo" data-nombre="Base de Datos Aplicada II" data-desbloquea="Taller de Base de Datos">Base de Datos Aplicada II</div>
-        <div class="ramo" data-nombre="Ingeniería de Software">Ingeniería de Software</div>
-        <div class="ramo" data-nombre="Inglés Elemental II" data-desbloquea="Inglés Intermedio I">Inglés Elemental II</div>
+    <section>
+      <h2>1er Año - Semestre II</h2>
+      <div class="ramo" data-id="oop" data-requisitos="fundamentos">
+        Desarrollo Orientado a Objetos
       </div>
-
-      <div class="semestre">
-        <h3>Semestre IV</h3>
-        <div class="ramo" data-nombre="Desarrollo Fullstack II" data-desbloquea="Desarrollo Fullstack III">Desarrollo Fullstack II</div>
-        <div class="ramo" data-nombre="Desarrollo de Aplicaciones Móviles">Desarrollo de Aplicaciones Móviles</div>
-        <div class="ramo" data-nombre="Taller de Base de Datos">Taller de Base de Datos</div>
-        <div class="ramo" data-nombre="Estadística Descriptiva">Estadística Descriptiva</div>
-        <div class="ramo" data-nombre="Inglés Intermedio I">Inglés Intermedio I</div>
-        <div class="ramo" data-nombre="Ética para el Trabajo" data-desbloquea="Ética Profesional">Ética para el Trabajo</div>
+      <div class="ramo" data-id="bd1" data-requisitos="">
+        Base de Datos Aplicada I
       </div>
-    </section>
-
-    <!-- Año 3 -->
-    <section class="año">
-      <h2>3er Año</h2>
-      <div class="semestre">
-        <h3>Semestre V</h3>
-        <div class="ramo" data-nombre="Desarrollo Fullstack III" data-desbloquea="Seguridad y Calidad en el Desarrollo de Software">Desarrollo Fullstack III</div>
-        <div class="ramo" data-nombre="Introducción a Herramientas DevOps">Introducción a Herramientas DevOps</div>
-        <div class="ramo" data-nombre="Evaluación de Proyectos de Software" data-desbloquea="Gestión de Proyectos de Software">Evaluación de Proyectos de Software</div>
+      <div class="ramo" data-id="req" data-requisitos="innovacion">
+        Ingeniería de Requisitos
       </div>
-
-      <div class="semestre">
-        <h3>Semestre VI</h3>
-        <div class="ramo" data-nombre="Desarrollo Cloud Native I">Desarrollo Cloud Native I</div>
-        <div class="ramo" data-nombre="Seguridad y Calidad en el Desarrollo de Software">Seguridad y Calidad en el Desarrollo de Software</div>
-        <div class="ramo" data-nombre="Gestión de Proyectos de Software">Gestión de Proyectos de Software</div>
+      <div class="ramo" data-id="mat-aplicada" data-requisitos="nivelacion">
+        Matemática Aplicada
+      </div>
+      <div class="ramo" data-id="ingles1" data-requisitos="">
+        Inglés Elemental I
+      </div>
+      <div class="ramo" data-id="antropologia" data-requisitos="">
+        Fundamentos de Antropología
       </div>
     </section>
 
-    <!-- Año 4 -->
-    <section class="año">
-      <h2>4to Año</h2>
-      <div class="semestre">
-        <h3>Semestre VII</h3>
-        <div class="ramo" data-nombre="Desarrollo Cloud Native II" data-desbloquea="Taller Aplicado de Software">Desarrollo Cloud Native II</div>
-        <div class="ramo" data-nombre="Arquitecturas TI Contemporáneas" data-desbloquea="Taller de Tecnologías de Vanguardia">Arquitecturas TI Contemporáneas</div>
-        <div class="ramo" data-nombre="BPM Aplicado">BPM Aplicado</div>
-        <div class="ramo" data-nombre="Ética Profesional">Ética Profesional</div>
+    <!-- 2do Año -->
+    <section>
+      <h2>2do Año - Semestre III</h2>
+      <div class="ramo" data-id="fullstack1" data-requisitos="oop">
+        Desarrollo Fullstack I
       </div>
-
-      <div class="semestre">
-        <h3>Semestre VIII</h3>
-        <div class="ramo" data-nombre="Taller de Tecnologías de Vanguardia">Taller de Tecnologías de Vanguardia</div>
-        <div class="ramo" data-nombre="Taller Aplicado de Software">Taller Aplicado de Software</div>
-        <div class="ramo" data-nombre="Práctica Profesional">Práctica Profesional</div>
+      <div class="ramo" data-id="bd2" data-requisitos="bd1">
+        Base de Datos Aplicada II
+      </div>
+      <div class="ramo" data-id="soft" data-requisitos="req">
+        Ingeniería de Software
+      </div>
+      <div class="ramo" data-id="ingles2" data-requisitos="ingles1">
+        Inglés Elemental II
       </div>
     </section>
 
-    <!-- Botón de reinicio -->
-    <div style="text-align: center; margin-top: 20px;">
-      <button onclick="reiniciarMalla()">Reiniciar Malla</button>
-    </div>
+    <section>
+      <h2>2do Año - Semestre IV</h2>
+      <div class="ramo" data-id="fullstack2" data-requisitos="fullstack1">
+        Desarrollo Fullstack II
+      </div>
+      <div class="ramo" data-id="moviles" data-requisitos="oop">
+        Desarrollo de Aplicaciones Móviles
+      </div>
+      <div class="ramo" data-id="tallerbd" data-requisitos="bd2">
+        Taller de Base de Datos
+      </div>
+      <div class="ramo" data-id="estadistica" data-requisitos="mat-aplicada">
+        Estadística Descriptiva
+      </div>
+      <div class="ramo" data-id="ingles3" data-requisitos="ingles2">
+        Inglés Intermedio I
+      </div>
+      <div class="ramo" data-id="etica" data-requisitos="antropologia">
+        Ética para el Trabajo
+      </div>
+    </section>
   </main>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const ramos = document.querySelectorAll('.ramo');
-      const progresoBarra = document.getElementById('progresoBarra');
-      const progresoTexto = document.getElementById('progresoTexto');
-
-      // Cargar estado almacenado
-      ramos.forEach(ramo => {
-        const nombre = ramo.dataset.nombre;
-        const aprobado = localStorage.getItem(`aprobado_${nombre}`) === 'true';
-
-        if (aprobado) {
-          ramo.classList.add('aprobado');
-        }
-
-        const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
-        if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
-          ramo.classList.add('desbloqueado');
-        }
-      });
-
-      actualizarProgreso();
-
-      // Evento de click en ramos
-      ramos.forEach(ramo => {
-        ramo.addEventListener('click', () => {
-          if (!ramo.classList.contains('desbloqueado')) {
-            alert('Este ramo aún no está desbloqueado.');
-            return;
-          }
-
-          const nombre = ramo.dataset.nombre;
-          ramo.classList.add('aprobado');
-          localStorage.setItem(`aprobado_${nombre}`, true);
-
-          desbloquearRamos();
-          actualizarProgreso();
-        });
-      });
-
-      function desbloquearRamos() {
-        ramos.forEach(ramo => {
-          if (ramo.classList.contains('aprobado')) return;
-          const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
-          if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
-            ramo.classList.add('desbloqueado');
-          }
-        });
-      }
-
-      function actualizarProgreso() {
-        const total = ramos.length;
-        const aprobados = [...ramos].filter(r => r.classList.contains('aprobado')).length;
-        const porcentaje = Math.round((aprobados / total) * 100);
-        progresoBarra.style.width = `${porcentaje}%`;
-        progresoTexto.textContent = `${porcentaje}% Completado`;
-      }
-    });
-
-    function reiniciarMalla() {
-      if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
-        localStorage.clear();
-        location.reload();
-      }
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
