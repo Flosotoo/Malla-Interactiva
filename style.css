@@ -1,113 +1,63 @@
-:root {
-  --azul-oscuro: #2F4156;
-  --azul: #567CBD;
-  --celeste: #C8D9E6;
-  --beige: #F5EFEB;
-  --blanco: #FFFFFF;
-  --verde: #4CAF50;
-  --rojo: #E57373;
-}
-
+/* Estilos generales */
 body {
   font-family: Arial, sans-serif;
-  background-color: var(--beige);
-  color: var(--azul-oscuro);
+  background: #F5EFEB;
   margin: 0;
   padding: 0;
+  color: #2F4156;
 }
 
 header {
-  background-color: var(--azul);
-  color: var(--blanco);
-  padding: 20px;
+  background: #2F4156;
+  color: #FFFFFF;
   text-align: center;
+  padding: 1rem;
 }
 
 h1 {
   margin: 0;
-  font-size: 28px;
-}
-
-h2, h3 {
-  margin: 10px 0;
 }
 
 main {
   padding: 20px;
+  max-width: 900px;
+  margin: auto;
 }
 
-.año {
-  margin-bottom: 40px;
-  background-color: var(--blanco);
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(47, 65, 86, 0.1);
-  padding: 20px;
+section {
+  margin-bottom: 30px;
 }
 
-.semestre {
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 2px solid var(--celeste);
-  border-radius: 6px;
+h2 {
+  background: #567CBD;
+  color: #FFFFFF;
+  padding: 10px;
+  border-radius: 5px;
 }
 
+/* Ramos */
 .ramo {
   padding: 10px;
-  margin: 6px 0;
-  background-color: var(--celeste);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #e0e0e0;
+  cursor: not-allowed;
+  transition: 0.3s;
 }
 
-.ramo:hover {
-  background-color: var(--azul);
-  color: var(--blanco);
-}
-
-.ramo.aprobado {
-  background-color: var(--verde);
-  color: var(--blanco);
-}
-
+/* Ramos desbloqueados (se pueden aprobar) */
 .ramo.desbloqueado {
-  border: 2px dashed var(--azul);
+  background: #fffbe6;
+  border-color: #ffeb3b;
+  color: #333;
+  cursor: pointer;
 }
 
-.promedio {
+/* Ramos aprobados */
+.ramo.aprobado {
+  background: #a8e6a3;
+  border-color: #4caf50;
+  color: #1b5e20;
   font-weight: bold;
-  margin-top: 10px;
-}
-
-.promedio.alto {
-  color: var(--verde);
-}
-
-#progresoContainer {
-  margin-top: 10px;
-  background-color: var(--celeste);
-  border-radius: 10px;
-  height: 24px;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  overflow: hidden;
-}
-
-#progresoBarra {
-  height: 100%;
-  background-color: var(--verde);
-  width: 0%;
-  transition: width 0.3s ease-in-out;
-}
-
-#progresoTexto {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  line-height: 24px;
-  color: var(--azul-oscuro);
-  font-weight: bold;
-  font-size: 14px;
 }
