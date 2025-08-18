@@ -4,7 +4,112 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ing. En Informática</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --azul-oscuro: #2F4156;
+      --azul: #567CBD;
+      --celeste: #C8D9E6;
+      --beige: #F5EFEB;
+      --blanco: #FFFFFF;
+      --verde: #4CAF50;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--beige);
+      color: var(--azul-oscuro);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: var(--azul);
+      color: var(--blanco);
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 { margin: 0; font-size: 28px; }
+    h2, h3 { margin: 10px 0; }
+
+    main { padding: 20px; }
+
+    .año {
+      margin-bottom: 40px;
+      background-color: var(--blanco);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(47, 65, 86, 0.1);
+      padding: 20px;
+    }
+
+    .semestre {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 2px solid var(--celeste);
+      border-radius: 6px;
+    }
+
+    .ramo {
+      padding: 10px;
+      margin: 6px 0;
+      background-color: var(--celeste);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .ramo:hover {
+      background-color: var(--azul);
+      color: var(--blanco);
+    }
+
+    .ramo.aprobado {
+      background-color: var(--verde);
+      color: var(--blanco);
+    }
+
+    .ramo.desbloqueado {
+      border: 2px dashed var(--azul);
+    }
+
+    #progresoContainer {
+      margin-top: 10px;
+      background-color: var(--celeste);
+      border-radius: 10px;
+      height: 24px;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #progresoBarra {
+      height: 100%;
+      background-color: var(--verde);
+      width: 0%;
+      transition: width 0.3s ease-in-out;
+    }
+
+    #progresoTexto {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      line-height: 24px;
+      color: var(--azul-oscuro);
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #567CBD;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -20,7 +125,6 @@
     <!-- Año 1 -->
     <section class="año">
       <h2>1er Año</h2>
-
       <div class="semestre">
         <h3>Semestre I</h3>
         <div class="ramo" data-nombre="Fundamentos de Programación" data-desbloquea="Desarrollo Orientado a Objetos">Fundamentos de Programación</div>
@@ -44,7 +148,6 @@
     <!-- Año 2 -->
     <section class="año">
       <h2>2do Año</h2>
-
       <div class="semestre">
         <h3>Semestre III</h3>
         <div class="ramo" data-nombre="Desarrollo Fullstack I" data-desbloquea="Desarrollo Fullstack II">Desarrollo Fullstack I</div>
@@ -67,7 +170,6 @@
     <!-- Año 3 -->
     <section class="año">
       <h2>3er Año</h2>
-
       <div class="semestre">
         <h3>Semestre V</h3>
         <div class="ramo" data-nombre="Desarrollo Fullstack III" data-desbloquea="Seguridad y Calidad en el Desarrollo de Software">Desarrollo Fullstack III</div>
@@ -86,7 +188,6 @@
     <!-- Año 4 -->
     <section class="año">
       <h2>4to Año</h2>
-
       <div class="semestre">
         <h3>Semestre VII</h3>
         <div class="ramo" data-nombre="Desarrollo Cloud Native II" data-desbloquea="Taller Aplicado de Software">Desarrollo Cloud Native II</div>
@@ -105,12 +206,75 @@
 
     <!-- Botón de reinicio -->
     <div style="text-align: center; margin-top: 20px;">
-      <button onclick="reiniciarMalla()" style="background-color: #567CBD; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
-        Reiniciar Malla
-      </button>
+      <button onclick="reiniciarMalla()">Reiniciar Malla</button>
     </div>
   </main>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const ramos = document.querySelectorAll('.ramo');
+      const progresoBarra = document.getElementById('progresoBarra');
+      const progresoTexto = document.getElementById('progresoTexto');
+
+      // Cargar estado almacenado
+      ramos.forEach(ramo => {
+        const nombre = ramo.dataset.nombre;
+        const aprobado = localStorage.getItem(`aprobado_${nombre}`) === 'true';
+
+        if (aprobado) {
+          ramo.classList.add('aprobado');
+        }
+
+        const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
+        if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
+          ramo.classList.add('desbloqueado');
+        }
+      });
+
+      actualizarProgreso();
+
+      // Evento de click en ramos
+      ramos.forEach(ramo => {
+        ramo.addEventListener('click', () => {
+          if (!ramo.classList.contains('desbloqueado')) {
+            alert('Este ramo aún no está desbloqueado.');
+            return;
+          }
+
+          const nombre = ramo.dataset.nombre;
+          ramo.classList.add('aprobado');
+          localStorage.setItem(`aprobado_${nombre}`, true);
+
+          desbloquearRamos();
+          actualizarProgreso();
+        });
+      });
+
+      function desbloquearRamos() {
+        ramos.forEach(ramo => {
+          if (ramo.classList.contains('aprobado')) return;
+          const requisitos = ramo.dataset.desbloquea?.split(',').map(r => r.trim()).filter(r => r);
+          if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
+            ramo.classList.add('desbloqueado');
+          }
+        });
+      }
+
+      function actualizarProgreso() {
+        const total = ramos.length;
+        const aprobados = [...ramos].filter(r => r.classList.contains('aprobado')).length;
+        const porcentaje = Math.round((aprobados / total) * 100);
+        progresoBarra.style.width = `${porcentaje}%`;
+        progresoTexto.textContent = `${porcentaje}% Completado`;
+      }
+    });
+
+    function reiniciarMalla() {
+      if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
+  </script>
 </body>
 </html>
