@@ -1,66 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const ramos = document.querySelectorAll('.ramo');
-  const progresoBarra = document.getElementById('progresoBarra');
-  const progresoTexto = document.getElementById('progresoTexto');
-  const botonReiniciar = document.getElementById('reiniciar');
+document.addEventListener("DOMContentLoaded", () => {
+  const ramos = document.querySelectorAll(".ramo");
 
-  // Cargar datos almacenados
+  // Estado inicial: desbloquear todos los que no tienen requisitos
   ramos.forEach(ramo => {
-    const id = ramo.dataset.id;
-    const aprobado = localStorage.getItem(`aprobado_${id}`) === 'true';
-
-    if (aprobado) {
-      ramo.classList.add('aprobado');
-    }
-
-    const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
-    if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
-      ramo.classList.add('desbloqueado');
+    if (!ramo.dataset.requisitos) {
+      ramo.classList.add("desbloqueado");
     }
   });
 
-  actualizarProgreso();
-
+  // Evento de click para aprobar ramos
   ramos.forEach(ramo => {
-    ramo.addEventListener('click', () => {
-      if (!ramo.classList.contains('desbloqueado')) {
-        alert('Este ramo aún no está desbloqueado.');
-        return;
-      }
+    ramo.addEventListener("click", () => {
+      // Solo permite aprobar si está desbloqueado
+      if (ramo.classList.contains("desbloqueado") && !ramo.classList.contains("aprobado")) {
+        ramo.classList.add("aprobado");
 
-      const id = ramo.dataset.id;
-
-      ramo.classList.add('aprobado');
-      localStorage.setItem(`aprobado_${id}`, true);
-
-      desbloquearRamos();
-      actualizarProgreso();
-    });
-  });
-
-  function desbloquearRamos() {
-    ramos.forEach(ramo => {
-      if (ramo.classList.contains('aprobado')) return;
-
-      const requisitos = ramo.dataset.requisitos?.split(',').map(r => r.trim()).filter(r => r);
-      if (!requisitos || requisitos.every(req => localStorage.getItem(`aprobado_${req}`) === 'true')) {
-        ramo.classList.add('desbloqueado');
+        // Desbloquear los ramos que dependían de este
+        const id = ramo.dataset.id;
+        ramos.forEach(siguiente => {
+          const requisitos = siguiente.dataset.requisitos.split(",");
+          if (requisitos.includes(id)) {
+            siguiente.classList.add("desbloqueado");
+          }
+        });
       }
     });
-  }
-
-  function actualizarProgreso() {
-    const total = ramos.length;
-    const aprobados = [...ramos].filter(r => r.classList.contains('aprobado')).length;
-    const porcentaje = Math.round((aprobados / total) * 100);
-    progresoBarra.style.width = `${porcentaje}%`;
-    progresoTexto.textContent = `${porcentaje}% Completado`;
-  }
-
-  botonReiniciar.addEventListener('click', () => {
-    if (confirm('¿Estás seguro de que quieres reiniciar todos los datos?')) {
-      localStorage.clear();
-      location.reload();
-    }
   });
 });
