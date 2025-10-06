@@ -1,91 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ing. En Informática</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Interactiva</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>Ing. En Informática</h1>
-  </header>
-
-  <main>
-    <!-- 1er Año -->
-    <section>
-      <h2>1er Año</h2>
-
-      <h3>Semestre I</h3>
-      <div class="ramo" data-id="fund_prog">Fundamentos de Programación</div>
-      <div class="ramo" data-id="cloud_intro">Introducción al Cloud Computing</div>
-      <div class="ramo" data-id="bases_innov" data-requisitos="fund_prog">Bases de Innovación</div>
-      <div class="ramo" data-id="niv_mate" data-requisitos="fund_prog">Nivelación Matemática</div>
-      <div class="ramo" data-id="hab_com">Habilidades de Comunicación</div>
-
-      <h3>Semestre II</h3>
-      <div class="ramo" data-id="oop" data-requisitos="fund_prog">Desarrollo Orientado a Objetos</div>
-      <div class="ramo" data-id="bd1" data-requisitos="oop">Base de Datos Aplicada I</div>
-      <div class="ramo" data-id="reqs" data-requisitos="bases_innov">Ingeniería de Requisitos</div>
-      <div class="ramo" data-id="mat_apl" data-requisitos="niv_mate">Matemática Aplicada</div>
-      <div class="ramo" data-id="eng1">Inglés Elemental I</div>
-      <div class="ramo" data-id="antro">Fundamentos de Antropología</div>
-    </section>
-
-    <!-- 2do Año -->
-    <section>
-      <h2>2do Año</h2>
-
-      <h3>Semestre III</h3>
-      <div class="ramo" data-id="full1" data-requisitos="oop">Desarrollo Fullstack I</div>
-      <div class="ramo" data-id="bd2" data-requisitos="bd1">Base de Datos Aplicada II</div>
-      <div class="ramo" data-id="sw_eng" data-requisitos="reqs">Ingeniería de Software</div>
-      <div class="ramo" data-id="eng2" data-requisitos="eng1">Inglés Elemental II</div>
-
-      <h3>Semestre IV</h3>
-      <div class="ramo" data-id="full2" data-requisitos="full1">Desarrollo Fullstack II</div>
-      <div class="ramo" data-id="movil" data-requisitos="oop">Desarrollo de Aplicaciones Móviles</div>
-      <div class="ramo" data-id="taller_bd" data-requisitos="bd2">Taller de Base de Datos</div>
-      <div class="ramo" data-id="estad" data-requisitos="mat_apl">Estadística Descriptiva</div>
-      <div class="ramo" data-id="eng3" data-requisitos="eng2">Inglés Intermedio I</div>
-      <div class="ramo" data-id="etica1" data-requisitos="antro">Ética para el Trabajo</div>
-    </section>
-
-    <!-- 3er Año -->
-    <section>
-      <h2>3er Año</h2>
-
-      <h3>Semestre V</h3>
-      <div class="ramo" data-id="full3" data-requisitos="full2">Desarrollo Fullstack III</div>
-      <div class="ramo" data-id="devops">Introducción a Herramientas DevOps</div>
-      <div class="ramo" data-id="eval_proj">Evaluación de Proyectos de Software</div>
-
-      <h3>Semestre VI</h3>
-      <div class="ramo" data-id="cloud1">Desarrollo Cloud Native I</div>
-      <div class="ramo" data-id="seg_soft" data-requisitos="full3">Seguridad y Calidad en el Desarrollo de Software</div>
-      <div class="ramo" data-id="gest_proj" data-requisitos="eval_proj">Gestión de Proyectos de Software</div>
-    </section>
-
-    <!-- 4to Año -->
-    <section>
-      <h2>4to Año</h2>
-
-      <h3>Semestre VII</h3>
-      <div class="ramo" data-id="cloud2" data-requisitos="cloud1">Desarrollo Cloud Native II</div>
-      <div class="ramo" data-id="arq_ti">Arquitecturas TI Contemporáneas</div>
-      <div class="ramo" data-id="bpm">BPM Aplicado</div>
-      <div class="ramo" data-id="etica2" data-requisitos="etica1">Ética Profesional</div>
-
-      <h3>Semestre VIII</h3>
-      <div class="ramo" data-id="taller_vang" data-requisitos="arq_ti">Taller de Tecnologías de Vanguardia</div>
-      <div class="ramo" data-id="taller_soft" data-requisitos="cloud2">Taller Aplicado de Software</div>
-      <div class="ramo" data-id="practica" data-requisitos="fund_prog,oop,bases_innov,niv_mate,hab_com,cloud_intro,bd1,reqs,mat_apl,eng1,antro,full1,bd2,sw_eng,eng2,full2,movil,taller_bd,estad,eng3,etica1,full3,devops,eval_proj,cloud1,seg_soft,gest_proj,cloud2,arq_ti,bpm,etica2,taller_vang,taller_soft">Práctica Profesional</div>
-    </section>
-  </main>
-
-  <div style="text-align: center; margin-top: 20px;">
-    <button onclick="reiniciarMalla()">Reiniciar Malla</button>
+  <h1>Malla Interactiva de la Carrera</h1>
+  <div id="progress-container">
+    <label>Progreso:</label>
+    <progress id="progress-bar" value="0" max="100"></progress>
+    <span id="progress-text">0%</span>
   </div>
+
+  <div id="malla"></div>
 
   <script src="script.js"></script>
 </body>
