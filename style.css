@@ -1,63 +1,58 @@
-/* Estilos generales */
 body {
   font-family: Arial, sans-serif;
-  background: #F5EFEB;
+  background-color: #e6f7ff;
   margin: 0;
-  padding: 0;
-  color: #2F4156;
-}
-
-header {
-  background: #2F4156;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 1rem;
+  padding: 20px;
 }
 
 h1 {
-  margin: 0;
+  text-align: center;
+  color: #007acc;
 }
 
-main {
-  padding: 20px;
-  max-width: 900px;
-  margin: auto;
+#malla {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-top: 20px;
 }
 
-section {
-  margin-bottom: 30px;
-}
-
-h2 {
-  background: #567CBD;
-  color: #FFFFFF;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* Ramos */
 .ramo {
+  background-color: #cceeff;
+  border: 2px solid #007acc;
+  border-radius: 8px;
   padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #e0e0e0;
-  cursor: not-allowed;
-  transition: 0.3s;
-}
-
-/* Ramos desbloqueados (se pueden aprobar) */
-.ramo.desbloqueado {
-  background: #fffbe6;
-  border-color: #ffeb3b;
-  color: #333;
+  text-align: center;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Ramos aprobados */
-.ramo.aprobado {
-  background: #a8e6a3;
-  border-color: #4caf50;
-  color: #1b5e20;
+.ramo.locked {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.ramo.approved {
+  background-color: #00cc99;
+  color: white;
+  border-color: #009973;
+}
+
+#progress-container {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+}
+
+#progress-bar {
+  width: 70%;
+  height: 20px;
+  margin-top: 10px;
+}
+
+#progress-text {
+  margin-left: 10px;
   font-weight: bold;
 }
